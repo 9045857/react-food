@@ -1,13 +1,284 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+        "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+        "Helvetica Neue", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+        monospace;
+}
+
+nav {
+    padding: 0 1rem;
+}
+
+.content {
+    min-height: calc(100vh - 70px - 64px);
+    padding: 1.5rem;
+}
+
+.list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-content {
+    flex-grow: 1;
+}
+
+/* Columns */
+.left-column {
+    width: 60%;
+    position: relative;
+}
+
+.right-column {
+    width: 40%;
+}
+
+/*meal-info*/
+.meal-info {
+    display: flex;
+}
+
+/* Left Column */
+.left-column img {
+    width: 90%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    transition: all 0.3s ease;
+}
+
+.shot-info-meal {
+    width: 25%;
+    display: inline-block;
+    position: absolute;
+    margin: 0 0 0 1rem;
+    border-bottom: 1px solid #e1e8ee;
+    margin-bottom: 20px;
+}
+
+.img-meal {
+    width: 60%;
+}
+
+@media (max-width: 720px) {
+    .shot-info-meal,
+    .img-meal {
+        width: 100%;
+        display: block;
+        position: initial;
+        margin: 1rem 0;
+    }
+}
+
+/* Product Description */
+/* .product-description {
+    border-bottom: 1px solid #e1e8ee;
+    margin-bottom: 20px;
+} */
+.product-description span {
+    font-size: 12px;
+    color: #358ed7;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+.product-description h1,
+h1.product-description {
+    font-weight: 300;
+    font-size: 52px;
+    color: #43484d;
+    letter-spacing: -2px;
+}
+.product-description p {
+    font-size: 16px;
+    font-weight: 300;
+    color: #86939e;
+    line-height: 24px;
+}
+
+.go-back-text {
+    float: left;
+    display: table-cell;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.go-back i {
+    cursor: pointer;
+}
+
+.go-back-page {
+    vertical-align: top;
+}
+
+.go-back {
+    color: #86939e;
+}
+
+.recipe img,
+iframe {
+    max-width: 100%;
+}
+
+frame {
+    width: 600px;
+    height: 350px;
+}
+
+.block-menu {
+    position: fixed;
+
+    height: 100%;
+    width: 100%;
+
+    top: 0;
+    left: 0;
+
+    background-color: #dad9d9;
+    opacity: 0.5;
+    z-index: 9999;
+}
+
+.list-menu {
+    position: fixed;
+
+    min-width: 400px;
+    height: 100%;
+
+    top: 0;
+    left: 0;
+
+    background-color: #ffffff;
+    z-index: 10000;
+    opacity: 1;
+
+    animation: show-list-menu 250ms ease-in-out;
+}
+
+.list-menu.hide-menu {
+    animation: hidden-list-menu 250ms ease-in-out;
+}
+
+.hide-menu {
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0s 0.25s;
+}
+
+@keyframes show-list-menu {
+    from {
+        left: -400px;
+    }
+    to {
+        left: 0px;
+    }
+}
+
+@keyframes hidden-list-menu {
+    from {
+        left: 0px;
+    }
+    to {
+        left: -400px;
+    }
+}
+
+@media (max-width: 400px) {
+    .list-menu {
+        min-width: 100%;
+    }
+}
+
+.close-menu {
+    max-width: 2em; /* блок занимает ширину родителя, max-width её ограничивает */
+    min-height: 2em;
+    margin-left: auto;
+    margin-right: 0.8em;
+    margin-top: 0.8em;
+    cursor: pointer;
+}
+.icon-menu {
+    position: absolute;
+    cursor: pointer;
+
+    left: 230px;
+
+    z-index: 100;
+
+    top: 18px;
+}
+
+@media only screen and (max-width: 992px) {
+    .icon-menu {
+        position: absolute;
+        cursor: pointer;
+
+        left: 10px;
+
+        z-index: 100;
+
+        top: 3px;
+    }
+}
+
+.menu-list-icons {
+    vertical-align: top;
+    display: inline-block;
+    margin: 2px 0 0 1rem;
+}
+
+.pagination,
+.caption-page {
+    text-align: center;
+}
+
+.title-map {
+    text-align: center;
+}
+
+.map-container div,
+.ymaps-2-1-79-map {
+    height: 500px !important;
+    width: 100% !important;
+}
+
+.ingredient-image {
+    display: inline-block;
+    position: relative;
+    left: 40%;
+
+    width: 50px;
+    height: 50px;
+
+    vertical-align: middle;
+
+    margin: 0;
+}
+
+.ingredient-name {
+    display: inline-block;
+    position: relative;
+    left: 42%;
+
+    vertical-align: middle;
+
+    margin: 0;
+}
+
+th.ingredient,
+td.ingredient {
+    padding: 5px 5px !important;
 }
