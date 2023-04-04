@@ -7,6 +7,7 @@ export const ContextProvider = ({ children }) => {
     const [sortedItems, setSortedItems] = useState([]);
     const [pageNumber, setPageNumber] = useState([]);
     const [selectNumber, setSelectNumber] = useState(1);
+    const [pagesCount, setPagesCount] = useState(1);
 
     const setSelectPageNumber = (number) => {
         setSelectNumber(number);
@@ -22,8 +23,10 @@ export const ContextProvider = ({ children }) => {
         if (dataCount <= itemsCountOnPage) {
             countPages = 1;
         } else {
-            countPages = (dataCount - 1) / itemsCountOnPage + 1;
+            countPages = Math.floor((dataCount - 1) / itemsCountOnPage + 1);
         }
+
+        setPagesCount(Number(countPages));
 
         setPageNumber(() => {
             let content = [];
@@ -54,6 +57,7 @@ export const ContextProvider = ({ children }) => {
         setList,
         sortedItems,
         pageNumber,
+        pagesCount,
         setShortList,
         setSelectPageNumber,
         selectNumber,
