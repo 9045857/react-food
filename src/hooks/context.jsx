@@ -1,4 +1,5 @@
 import React, { createContext, useState } from "react";
+import { useHistory } from "react-router-dom";
 
 export const PanigationContext = createContext();
 
@@ -6,12 +7,13 @@ export const ContextProvider = ({ children }) => {
     const [originalData, setOriginalData] = useState([]);
 
     const [items, setItems] = useState([]);
-    const [sortedItems, setSortedItems] = useState([]);
+    const [itemsPage, setItemsPage] = useState([]);
     const [pageNumber, setPageNumber] = useState([]);
     const [selectNumber, setSelectNumber] = useState(1);
     const [pagesCount, setPagesCount] = useState(1);
-    //const [searchedItems, setSearchedItems] = useState([]);
-    //   const [searchStr, setSearchStr] = useState("");
+    const [ingridientsSearched, setIngridientsSearched] = useState(false);
+
+    const history = useHistory();
 
     function deepClone(item) {
         if (!item) {
@@ -37,33 +39,54 @@ export const ContextProvider = ({ children }) => {
         return item;
     }
 
-    const setSearchedIngridients = (data, str) => {
-        // const data = originalData;
-
-        console.log("data in ing:" + data.length);
-
+    const setOriginalDataList = (data) => {
         let shortList = data.map(deepClone);
+        setItems(shortList);
+        setPagesParams(shortList.length);
+
+        setOriginalData(() => data);
+    };
+
+    const setSearchedIngridients = (str) => {
+        let shortList = originalData.map(deepClone);
 
         if (str !== "") {
             shortList = shortList.filter((item) =>
                 item.strIngredient.toLowerCase().includes(str.toLowerCase())
             );
 
-            // console.log("click" + str);
+            if (!shortList.length) {
+                shortList = [];
+            }
         }
 
         setItems(shortList);
 
         setPagesParams(shortList.length);
+
+        setSelectPageNumber(1);
+
+        history.push("/ingredients/1");
     };
 
     const setSelectPageNumber = (number) => {
-        setSelectNumber(number);
+        setSelectNumber(() => number);
+        console.log(selectNumber);
     };
 
     const itemsCountOnPage = 30;
 
     const setPagesParams = (arrayLenght) => {
+        if (!arrayLenght) {
+            setPagesCount(1);
+            setPageNumber(() => {
+                return [1];
+            });
+
+            setIngridientsSearched(true);
+            return;
+        }
+
         let countPages;
 
         if (arrayLenght <= itemsCountOnPage) {
@@ -81,26 +104,19 @@ export const ContextProvider = ({ children }) => {
             }
             return content;
         });
+
+        setIngridientsSearched(true);
     };
 
-    const setOD = (data) => {
-        setOriginalData(() => data);
-    };
-
-    const setList = (data, dataCount) => {
-        //TODO check on null
-        //setItems(data);
+    const setList = (data) => {
+        setIngridientsSearched(false);
         console.log("dat: " + data.length);
 
-        setOriginalData(() => data);
+        setOriginalDataList(data);
 
         console.log("originalData: " + originalData.length);
 
-        setSearchedIngridients(data, "");
-
-        // console.log("here: " + originalData.length);
-
-        setPagesParams(dataCount);
+        setIngridientsSearched(true);
     };
 
     const setShortList = (number) => {
@@ -115,15 +131,16 @@ export const ContextProvider = ({ children }) => {
             (el, index) => index >= beginIndex && index <= endIndex
         );
 
-        setSortedItems(shortList);
+        setItemsPage(shortList);
     };
 
     const value = {
         items,
         setList,
-        sortedItems, //TODO rename on pageItems.
+        itemsPage,
         pageNumber,
         pagesCount,
+        ingridientsSearched,
         setShortList,
         setSelectPageNumber,
         selectNumber,

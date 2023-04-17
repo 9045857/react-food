@@ -13,10 +13,11 @@ import { PanigationContext } from "../hooks/context";
 export const IngredientList = () => {
     const {
         items = [],
+        itemsPage = [],
+        selectNumber = 1,
+        ingridientsSearched,
         setSearchedIngridients,
         setList,
-        sortedItems,
-        selectNumber,
         setShortList,
         setSelectPageNumber,
     } = useContext(PanigationContext);
@@ -25,9 +26,7 @@ export const IngredientList = () => {
 
     useEffect(
         () => {
-            getAllIngredientsList().then((data) =>
-                setList(data.meals, data.meals.length)
-            );
+            getAllIngredientsList().then((data) => setList(data.meals));
 
             setSelectPageNumber(Number(number));
         },
@@ -36,26 +35,27 @@ export const IngredientList = () => {
     );
 
     useEffect(
-        () => setShortList(selectNumber),
+        () => {
+            setShortList(selectNumber);
+        },
         //eslint-disable-next-line
         [selectNumber, items]
     );
 
     const handleSearch = (str) => {
-        console.log(str);
-        setSearchedIngridients(items, str);
-    }; //TODO
+        setSearchedIngridients(str);
+    };
 
     return (
         <>
-            {!items.length ? (
+            {!ingridientsSearched ? (
                 <Preloader />
             ) : (
                 <>
                     <Search cb={handleSearch} />
 
                     <List
-                        items={sortedItems}
+                        items={itemsPage}
                         type='ingredients'
                     />
 
