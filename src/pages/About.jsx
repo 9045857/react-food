@@ -49,6 +49,7 @@ export const About = () => {
                         https://9045857.github.io/react-movies/
                     </a>
                     React shop:{" "}
+                    <br />
                     <a
                         href='https://9045857.github.io/react-shop/'
                         target='_blank'
