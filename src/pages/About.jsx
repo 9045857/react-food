@@ -38,6 +38,24 @@ export const About = () => {
                         https://pbe-react-yandex-maps.vercel.app/
                     </a>
                     .
+                    <br />
+                    <h6>Another projects</h6>
+                    React movies:{" "}
+                    <a
+                        href='https://9045857.github.io/react-movies/'
+                        target='_blank'
+                        rel='noreferrer'
+                    >
+                        https://9045857.github.io/react-movies/
+                    </a>
+                    React shop:{" "}
+                    <a
+                        href='https://9045857.github.io/react-shop/'
+                        target='_blank'
+                        rel='noreferrer'
+                    >
+                        https://9045857.github.io/react-shop/
+                    </a>
                 </p>
             </div>
         </>

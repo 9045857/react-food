@@ -21,7 +21,7 @@ import { ContextProvider } from "./hooks/context";
 function App() {
     return (
         <>
-            <Router>
+            <Router basename="/react-food">
                 <ContextProvider>
                     <Header />
                     <main className='container content'>
